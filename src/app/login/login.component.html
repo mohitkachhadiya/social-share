@@ -1,0 +1,41 @@
+<div class="main_content">
+	<img src="./assets/background-1.jpg">
+	<div class="container content">
+		<div class="row">
+			<div class="col-sm-10 mt-5 offset-1">
+				<mat-card class="p-5">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="text_title">
+								<img src="./assets/background.jpg">	
+							</div>
+						</div>
+						<div class="col-sm-6 pl-5">						
+							<h1 class="text-center mt-5">Login</h1>
+							<form [formGroup]="loginForm">
+								<div class="form-group">
+									<mat-form-field class="full-width pt-1">
+										<mat-label>Email</mat-label>
+										<input matInput  type="text" formControlName="email" name="email" placeholder="Ex. abc@gmail.com">
+									</mat-form-field>			
+								</div>
+								<div class="form-group">
+									<mat-form-field class="full-width pt-1 pb-3">
+										<mat-label>Enter your password</mat-label>
+										<input matInput type="password" name="password" formControlName="password">
+									</mat-form-field>
+								</div>
+								<div class="text-center">
+									<button type="button" class="btn btn-primary mb-3" (click)="loginUser(loginForm.value)">Login</button>
+								</div>
+								<p class="text-center"><span *ngIf="err" class="text-danger">{{errMessage}}</span></p> 
+
+								<p class="text-center mt-4 mb-5">Do You Want to<a class="sign_in" routerLink="/sign-up"> Sign-in ?</a></p>	
+							</form>
+						</div>
+					</div>
+				</mat-card>
+			</div>
+		</div>
+	</div>
+</div>

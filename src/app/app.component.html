@@ -1,0 +1,23 @@
+<nav class="navbar-expand-md flex-column navbar-dark p-3" style="position: fixed;">
+	<div class="text-center">
+		<a class="navbar-brand text-center mt-4" href="#">Social Share</a>
+	</div>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		<ul class="nav nav-pills flex-column">
+			<li class="nav-item">
+				<a class="nav-link active" routerLink="/">Dashboard</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="my-profile">My Profile</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" (click)="logout()">Logout</a>
+			</li>
+		</ul>
+	</div>  
+</nav>
+
+<router-outlet></router-outlet>

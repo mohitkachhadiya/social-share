@@ -1,0 +1,24 @@
+.like_text a{
+	text-decoration: none;
+	color: black;
+	font-size: 16px;
+	padding: 0;
+}
+
+.like_text{
+	position: relative;
+	width: 115px;
+	padding: 5px;
+	border-radius: 15px;
+}
+
+.like_text:hover{
+	background-color: lightgrey;
+	opacity: 0.6;
+}
+
+.profile_post_img img{
+	position: relative; 
+	height: 100%; 
+	width: 100%;
+}
