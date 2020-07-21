@@ -25,6 +25,16 @@ export class PostsService {
   
   getUserById(id){
   	console.log("the getUserById of id is ==========>", id);
-    return this._http.get( config.baseApiUrl + 'posts/get-user-by-id/'+id); 
+    return this._http.get( config.baseApiUrl + 'users/get-user-by-id/'+id); 
+  }
+
+  getUserByPostId(id){
+    console.log("the getUserBypostId of id is ==========>", id);
+    return this._http.get( config.baseApiUrl + 'posts/get-user-by-post-id/'+id); 
+  }
+
+  updateUserByPostId(id, value){
+    console.log("the getUserBypostId of id is ==========>", id);
+    return this._http.put( config.baseApiUrl + 'posts/updateUserById/'+id, value); 
   }
 }

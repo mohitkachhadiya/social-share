@@ -61,7 +61,6 @@ export class MyprofileComponent implements OnInit {
 				}
 			});
 			console.log("the allPostOfData is the ======>", this.posts);
-			var likePost = localStorage.setItem('posts', JSON.stringify(this.posts));
 		} , (err)=>{
 			console.log("err of getAllUsers post" , err);
 		});
@@ -70,6 +69,21 @@ export class MyprofileComponent implements OnInit {
 
 	like(id){
 		console.log("the _id is ====>", id);
+		this._postService.getUserByPostId(id).subscribe((res:any) => {
+			console.log("the like res ===>", res);
+			if (id == res._id) {
+				if (res.like == 1) {
+					res.like = 0;
+					console.log("like");
+				}
+				else{
+					res.like = 1;
+					console.log("dislike");
+				}
+			}
+		}, (err) => {
+			console.log("the like err is ====>", err);
+		})
 	}
 
 	onFileSelect(event) {
@@ -115,7 +129,7 @@ export class MyprofileComponent implements OnInit {
 			if (res.statusCode === 200) {
 				this.uploadFileInput.nativeElement.value = "";
 				this.fileInputLabel = undefined;
-				this.post.image = res.uploadedFile.path;
+				this.post.image = 'http://localhost/social_share_server/' + res.uploadedFile.path;
 				console.log("the post is ==========>", this.post);
 				this._postService.addPost(this.post).subscribe((res) => {
 					console.log("the res add post is ====>", res);
