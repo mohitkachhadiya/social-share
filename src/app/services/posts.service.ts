@@ -34,7 +34,11 @@ export class PostsService {
   }
 
   updateUserByPostId(id, value){
-    console.log("the getUserBypostId of id is ==========>", id);
-    return this._http.put( config.baseApiUrl + 'posts/updateUserById/'+id, value); 
+    var body = {
+       id: id,
+       userId: JSON.parse(localStorage.getItem('currentUser'))._id
+    }
+    console.log("the getUserBypostId of id is ==========>", value);
+    return this._http.put( config.baseApiUrl + 'posts/updateUserById ',body); 
   }
 }

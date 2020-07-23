@@ -15,6 +15,9 @@ export class HomeComponent implements OnInit {
 	allPost:any;
 	updatePost
 	postlikes:any = [];
+	userInfo:any;
+	userid:any;
+	likeflag:boolean = false;
 
 	constructor(public _loginService: LoginService, public _postService: PostsService) { }
 
@@ -23,58 +26,44 @@ export class HomeComponent implements OnInit {
 	}
 
 	allPosts(){
-		console.log("the function called");
+		this.userInfo = JSON.parse(localStorage.getItem('currentUser'));
+		this.userid = this.userInfo._id;
 		this._postService.allPosts().subscribe((res) => {
 			console.log("the res of allPosts", res);
+			
 			this.Posts = res;
 			this.posts = res;
-			this.Posts.filter((images, i) => {
-				if (images.like != 0) { 
-					console.log("demo");
-				}
-				else if (images.like != null) {
-					console.log("null demo");
-				}
-				else {
-					this.isLike = true;	
-				}
-			})
 		}, (err) => {
 			console.log("the err of allPosts", err);
 		})
 	}
 
-
-	like(id){
-		this._postService.getUserByPostId(id).subscribe((res)=> {
-			console.log("the user likes of res is =====>", res);
-			this.allPost = res;
-
-			this.posts.filter((likes, index) => {
-				console.log("the likes is ======>", likes);
-				if (likes._id === this.allPost._id) {
-					this.postlikes.push(likes.userId._id);
-					this.postlikes = this.postlikes.filter((el, i, a) => i === a.indexOf(el));
-
-					console.log("the postlikes filter is the ====>", this.postlikes);
-					if (likes.like == 0 || null) {
-						likes.like = this.postlikes.length;
-					}
-					else {
-						likes.like = this.postlikes.length - 1;
-					}
-					this._postService.updateUserByPostId(id, likes).subscribe((res) => {
-						console.log("the updatePost of user =====>", res);
+	like(id, likeflag){
+		this.Posts.filter((item, index) => {
+			if (id === item._id) {
+				if (this.likeflag == false) {
+					this.likeflag=true;
+					console.log("called");
+					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
+						console.log("the res of the data is ===========>", res);
+						item.likes.length = res.likes.length;
 					}, (err) => {
-						console.log("the updatePost of err ======>", err);
+						console.log("the res of the err is =========>", err);
 					})
 				}
-				else {
-					console.log("the conditon is wrong of likes =====", likes);
+				else{
+					this.likeflag = false;
+					// console.log("discolled", item.likes.length - 1);
+					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
+						console.log("the res of the data is ===========>", res);
+						item.likes.length = res.likes.length;
+					}, (err) => {
+						console.log("the res of the err is =========>", err);
+					})
+
 				}
-			})
-		}, (err) => {
-			console.log("the user likes of err is =====>", err);
-		})
+			}
+		});
+		console.log("the Posts of the data ----------->", this.Posts);
 	}
 }
