@@ -8,9 +8,9 @@ import { PostsService } from '../services/posts.service';
 	styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-	posts:any = [];
 	numberOfLikes: number = 0;
 	isLike:boolean = true;
+	isDislike:boolean = false;
 	Posts: any = [];
 	allPost:any;
 	updatePost
@@ -30,9 +30,8 @@ export class HomeComponent implements OnInit {
 		this.userid = this.userInfo._id;
 		this._postService.allPosts().subscribe((res) => {
 			console.log("the res of allPosts", res);
-			
 			this.Posts = res;
-			this.posts = res;
+			this.isLike = true;
 		}, (err) => {
 			console.log("the err of allPosts", err);
 		})
@@ -43,7 +42,9 @@ export class HomeComponent implements OnInit {
 			if (id === item._id) {
 				if (this.likeflag == false) {
 					this.likeflag=true;
-					console.log("called");
+					this.isLike = true;
+					this.isDislike = false;
+					console.log("like called");
 					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
 						console.log("the res of the data is ===========>", res);
 						item.likes.length = res.likes.length;
@@ -52,15 +53,16 @@ export class HomeComponent implements OnInit {
 					})
 				}
 				else{
+					console.log("dislike called");
 					this.likeflag = false;
-					// console.log("discolled", item.likes.length - 1);
+					this.isDislike = true;
+					this.isLike = false;
 					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
 						console.log("the res of the data is ===========>", res);
 						item.likes.length = res.likes.length;
 					}, (err) => {
 						console.log("the res of the err is =========>", err);
 					})
-
 				}
 			}
 		});

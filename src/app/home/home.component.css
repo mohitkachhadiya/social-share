@@ -25,3 +25,7 @@ mat-card{
 	height: 100%; 
 	width: 100%;
 }
+
+.fa-thumbs-up, .fa-thumbs-o-up {
+	font-size: 25px;
+}

@@ -7,18 +7,26 @@
 
 .like_text{
 	position: relative;
-	width: 115px;
+	width: 135px;
 	padding: 5px;
 	border-radius: 15px;
 }
 
 .like_text:hover{
 	background-color: lightgrey;
-	opacity: 0.6;
+	opacity: 0.9;
 }
 
 .profile_post_img img{
 	position: relative; 
 	height: 100%; 
+	width: 100%;
+}
+
+.fa-thumbs-up, .fa-thumbs-o-up {
+	font-size: 25px;
+}
+
+.form-control {
 	width: 100%;
 }

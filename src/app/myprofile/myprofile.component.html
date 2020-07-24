@@ -25,7 +25,7 @@
 			<mat-card class="mt-5" *ngFor="let post of posts; let i= index">
 				<mat-card-content>
 					<hr>
-					<h4 class="m-0">{{post.userId.name}}</h4>
+					<h4 class="m-0">{{post.userId.firstName}}</h4>
 
 					<span class="mt--5">{{post.time}}</span>
 
@@ -39,8 +39,12 @@
 
 					<hr>
 
-					<p class="like_text text-dark pl-3" (click)="like(post._id)"><a ><img src="./assets/thumb.png" width="30"><span class="m-3">Like</span></a>
-						<span *ngIf="isLike">{{post.like}}</span>
+					<p class="like_text text-dark pl-3" *ngIf="isLike" (click)="like(post._id)"><a><i class="fa fa-thumbs-up" aria-hidden="true"></i><span class="m-3">Like</span></a>
+						<span>{{post.likes.length}}</span>
+					</p>
+
+					<p class="like_text text-dark pl-3" *ngIf="isDislike" (click)="like(post._id)"><a ><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><span class="m-3">Like</span></a>
+						<span>{{post.likes.length}}</span>
 					</p>
 					
 					<hr>
@@ -74,13 +78,15 @@
 									<div><img [src]="url" *ngIf="url" ></div>										
 								</div>
 								<hr>
+								<div class="col-12">
 								<form [formGroup]="userDescription">
 									<div>
 										<input type="text" name="discription" class="form-control" formControlName="discription" placeholder="Say Something about these photos...">
 									</div>
 
-									<div class="col-sm-6"> <button class="btn btn-primary" type="submit" (click)="onFormSubmit(userDescription.value)" data-dismiss="modal">Upload</button> </div>
+									<div class="col-sm-12 text-center"> <button class="btn btn-primary mt-3" type="submit" (click)="onFormSubmit(userDescription.value)" data-dismiss="modal">Upload</button> </div>
 								</form>
+								</div>
 								<hr>
 							</div>
 						</div>

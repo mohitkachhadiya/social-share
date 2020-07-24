@@ -14,15 +14,15 @@ import * as moment from 'moment';
 export class MyprofileComponent implements OnInit {
 	url:any;
 	msg = "";
-	name = "mohit kachhadiya";
-	time="00:03";
 	userDescription:FormGroup;
 	userInfo = JSON.parse(localStorage.getItem('currentUser'));
+	name = this.userInfo.firstName;
+	time= moment().format('ll');
 	fileUploadForm: FormGroup;
 	fileInputLabel: string;
-	isLike:boolean = false;
 	allPostOfData:any = [];
 	posts: any = [];
+	likeflag:boolean = false;
 	
 	post:any = {
 		userId: this.userInfo,
@@ -66,23 +66,38 @@ export class MyprofileComponent implements OnInit {
 		});
 	}
 
-
+	isLike:boolean =true;
+	isDislike:boolean = false;
 	like(id){
 		console.log("the _id is ====>", id);
-		this._postService.getUserByPostId(id).subscribe((res:any) => {
-			console.log("the like res ===>", res);
-			if (id == res._id) {
-				if (res.like == 1) {
-					res.like = 0;
-					console.log("like");
+		this.posts.filter((item, index) => {
+			console.log("the item of myprofile page i ===========>", item);
+			if(id === item._id){
+				if (this.likeflag == false) {
+					this.likeflag=true;
+					console.log("like called");
+					this.isLike = true;
+					this.isDislike = false;
+					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
+						console.log("the res of the data is ===========>", res);
+						item.likes.length = res.likes.length;
+					}, (err) => {
+						console.log("the res of the err is =========>", err);
+					})
 				}
 				else{
-					res.like = 1;
-					console.log("dislike");
+					console.log("dislike called");
+					this.isDislike = true;
+					this.isLike = false;
+					this.likeflag = false;
+					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
+						console.log("the res of the data is ===========>", res);
+						item.likes.length = res.likes.length;
+					}, (err) => {
+						console.log("the res of the err is =========>", err);
+					})
 				}
-			}
-		}, (err) => {
-			console.log("the like err is ====>", err);
+			}			
 		})
 	}
 
