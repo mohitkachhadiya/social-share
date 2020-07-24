@@ -20,7 +20,7 @@
 					
 					<hr>
 					<div>
-						<p class="like_text text-dark pl-3" *ngIf="isLike" (click)="like(post._id, like)"><a><i class="fa fa-thumbs-up" aria-hidden="true"></i><span class="m-3">Like</span></a>
+						<p class="like_text text-dark pl-3" *ngIf="isLike" (click)="like(post._id, like, index)"><a><i class="fa fa-thumbs-up" aria-hidden="true"></i><span class="m-3">Like</span></a>
 							<span>{{post.likes.length}}</span>
 						</p>
 

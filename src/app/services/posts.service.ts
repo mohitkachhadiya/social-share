@@ -36,9 +36,9 @@ export class PostsService {
   updateUserByPostId(id, value){
     var body = {
        id: id,
-       userId: JSON.parse(localStorage.getItem('currentUser'))._id
+       userId: value
     }
-    console.log("the getUserBypostId of id is ==========>", value);
+    console.log("the getUserBypostId of id is ==========>", body);
     return this._http.put( config.baseApiUrl + 'posts/updateUserById ',body); 
   }
 }

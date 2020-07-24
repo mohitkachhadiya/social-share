@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
 					this.isLike = true;
 					this.isDislike = false;
 					console.log("like called");
-					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
+					this._postService.updateUserByPostId(item, this.userInfo._id).subscribe((res:any) => {
 						console.log("the res of the data is ===========>", res);
 						item.likes.length = res.likes.length;
 					}, (err) => {
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
 					this.likeflag = false;
 					this.isDislike = true;
 					this.isLike = false;
-					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
+					this._postService.updateUserByPostId(item, this.userInfo._id).subscribe((res:any) => {
 						console.log("the res of the data is ===========>", res);
 						item.likes.length = res.likes.length;
 					}, (err) => {

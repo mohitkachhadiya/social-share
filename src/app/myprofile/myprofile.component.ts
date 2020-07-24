@@ -68,37 +68,39 @@ export class MyprofileComponent implements OnInit {
 
 	isLike:boolean =true;
 	isDislike:boolean = false;
-	like(id){
-		console.log("the _id is ====>", id);
-		this.posts.filter((item, index) => {
-			console.log("the item of myprofile page i ===========>", item);
-			if(id === item._id){
-				if (this.likeflag == false) {
-					this.likeflag=true;
-					console.log("like called");
-					this.isLike = true;
-					this.isDislike = false;
-					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
-						console.log("the res of the data is ===========>", res);
-						item.likes.length = res.likes.length;
-					}, (err) => {
-						console.log("the res of the err is =========>", err);
-					})
-				}
-				else{
-					console.log("dislike called");
-					this.isDislike = true;
-					this.isLike = false;
-					this.likeflag = false;
-					this._postService.updateUserByPostId(id, this.userInfo._id).subscribe((res:any) => {
-						console.log("the res of the data is ===========>", res);
-						item.likes.length = res.likes.length;
-					}, (err) => {
-						console.log("the res of the err is =========>", err);
-					})
-				}
-			}			
-		})
+	like(index, post){
+		this._postService.updateUserByPostId(post, this.userInfo._id).subscribe((res:any) => {
+			console.log("the res of the data is ===========>", res);
+			this.posts[index] = res
+		}, (err) => {
+			console.log("the res of the err is =========>", err);
+		});
+		// console.log("the _id is ====>", id);
+		// this.posts.filter((item, index) => {
+		// 	console.log("the item of myprofile page i ===========>", item);
+		// 	if(id === item._id){
+		// 		if (this.likeflag == false) {
+		// 			this.likeflag=true;
+		// 			console.log("like called", post);
+		// 			this.isLike = true;
+		// 			this.isDislike = false;
+		// 		}
+		// 		else{
+		// 			console.log("dislike called");
+		// 			this.isDislike = true;
+		// 			this.isLike = false;
+		// 			this.likeflag = false;
+		// 			console.log("DISlike called", post);
+
+		// 			this._postService.updateUserByPostId(post, this.userInfo._id).subscribe((res:any) => {
+		// 				console.log("the res of the data is ===========>", res);
+		// 				item.likes.length = res.likes.length;
+		// 			}, (err) => {
+		// 				console.log("the res of the err is =========>", err);
+		// 			})
+		// 		}
+		// 	}			
+		// })
 	}
 
 	onFileSelect(event) {
